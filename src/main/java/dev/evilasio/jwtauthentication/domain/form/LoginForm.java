@@ -13,7 +13,7 @@ public class LoginForm {
     
     @NotBlank(message = "field 'login' is null or blank")
     @Length(max = 64, message = "field 'login' is too long, max=64 caracters")
-    private String login;
+    private String username;
 
     @NotBlank(message = "field 'password' is null or blank")
     @Length(max = 32, message = "field 'password' is too long, max=32 caracters")

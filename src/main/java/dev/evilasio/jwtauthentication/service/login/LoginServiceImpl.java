@@ -26,7 +26,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserAuthDto authUser(LoginForm form) {
-        User user = userRepository.findByLogin(form.getLogin())
+        User user = userRepository.findByUsername(form.getUsername())
                 .orElseThrow(() -> new RuntimeException("usuario não encontrado"));
 
         checkPassword(user, form.getPassword());
@@ -37,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public UserAuthDto register(RegisterForm form) {
 
-        checkLogin(form.getLogin());
+        checkUsername(form.getUsername());
 
         User user = createNewUser(form);
 
@@ -45,14 +45,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private User createNewUser(RegisterForm form) {
-        User newUser = new User(form.getLogin(), passwordEncoder.encode(form.getPassword()), form.getName(),
+        User newUser = new User(form.getUsername(), passwordEncoder.encode(form.getPassword()), form.getName(),
                 Collections.singleton(RoleEnum.USER));
         return userRepository.save(newUser);
     }
 
-    private void checkLogin(String login) {
-        if (userRepository.existsByLogin(login)) {
-            throw new RuntimeException("login ja cadastrado");
+    private void checkUsername(String username) {
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("username ja cadastrado");
         }
     }
 

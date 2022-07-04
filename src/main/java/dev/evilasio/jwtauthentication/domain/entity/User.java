@@ -27,7 +27,7 @@ public class User extends BaseEntity {
 
     @NotBlank
     @Column(unique = true)
-    private String login;
+    private String username;
 
     private String password;
 
